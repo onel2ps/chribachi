@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chribachi | Hibachi Dining</title>
+<meta name="description" content="Chribachi: an invite-only hibachi experience cooked on a Blackstone. Place your order for the next seating.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens ---------- */
+:root {
+  --black: #0F0F10; --char: #17181A; --char-2: #202124; --line: rgba(255,255,255,.14); --line-2: rgba(255,255,255,.08);
+  --white: #F4F2EE; --grey: #A7A6A2; --grey-2: #6F6E6A;
+  --red: #C8102E; --red-dark: #9D0C24; --ember: #E0561F;
+  --paper: #F6F5F2; --paper-2: #FFFFFF; --ink: #16161A; --ink-soft: #5B5B60; --rule: #DDDBD6;
+  --ok: #2F7D4F;
+  --bg: var(--black); --fg: var(--white);
+  --serif: 'Cormorant Garamond', 'Garamond', 'Times New Roman', serif;
+  --sans: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+}
+:root:not([data-theme="light"]) { }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: var(--black); } }
+:root[data-theme="dark"] { --bg: var(--black); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.08; margin: 0; }
+h4 { font-family: var(--sans); font-weight: 600; margin: 0; }
+p { margin: 0 0 1em; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.wrap { width: min(1120px, 100% - 3rem); margin: 0 auto; }
+.hidden { display: none !important; }
+.kicker { font-family: var(--sans); font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: .9rem; display: block; }
+
+/* ---------- nav ---------- */
+.nav { position: sticky; top: 0; z-index: 10; background: rgba(15,15,16,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-2); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 1rem; }
+.mark { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+.mark .sun { width: 34px; height: 34px; flex: none; display: block; }
+.mark .wordmark { font-family: var(--serif); font-size: 1.7rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--white); }
+.mark .office { font-family: var(--sans); font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--grey); margin-left: .6rem; padding-left: .8rem; border-left: 1px solid var(--line); }
+.nav-links { display: flex; gap: 2rem; font-size: .82rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+.nav-links a { text-decoration: none; color: var(--grey); } .nav-links a:hover { color: var(--white); }
+.nav-links a.cta { color: var(--white); border: 1px solid var(--line); padding: .55rem 1.1rem; }
+.nav-links a.cta:hover { border-color: var(--red); background: var(--red); }
+
+/* ---------- hero ---------- */
+.hero { position: relative; min-height: 78vh; display: grid; align-items: end; padding: 6rem 0 4.5rem; overflow: hidden; isolation: isolate; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -2; background:
+  radial-gradient(ellipse 70% 55% at 62% 100%, rgba(224,86,31,.42), transparent 62%),
+  radial-gradient(ellipse 40% 30% at 70% 95%, rgba(255,170,60,.28), transparent 70%),
+  radial-gradient(ellipse 90% 60% at 30% 20%, rgba(255,255,255,.04), transparent 60%),
+  linear-gradient(180deg, #121214 0%, #0F0F10 100%); }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background:
+  repeating-linear-gradient(90deg, transparent 0 88px, rgba(255,255,255,.025) 88px 89px); mask-image: linear-gradient(180deg, transparent 20%, #000 100%); }
+.hero .kicker { color: var(--ember); }
+.hero h1 { font-size: clamp(2.9rem, 7vw, 6rem); font-weight: 400; letter-spacing: -.01em; max-width: 14ch; color: var(--white); }
+.hero h1 em { font-style: italic; font-weight: 400; }
+.hero .lede { font-size: 1.05rem; color: var(--grey); max-width: 52ch; margin: 1.6rem 0 2.2rem; line-height: 1.75; }
+.hero-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 1.4rem; margin-top: 3rem; font-size: .85rem; color: var(--grey); }
+.hero-meta strong { display: block; color: var(--white); font-family: var(--serif); font-size: 1.35rem; font-weight: 500; }
+.btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-weight: 600; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; padding: 1rem 1.9rem; text-decoration: none; border: 1px solid transparent; transition: background .2s, border-color .2s, color .2s; }
+.btn-red { background: var(--red); color: #fff; border-color: var(--red); }
+.btn-red:hover { background: var(--red-dark); border-color: var(--red-dark); }
+.btn-outline { background: transparent; color: var(--white); border-color: var(--line); }
+.btn-outline:hover { border-color: var(--white); }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+/* ---------- sections ---------- */
+section.block { padding: 5.5rem 0; border-top: 1px solid var(--line-2); }
+.block h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--white); margin-bottom: .6rem; }
+.block .sub { color: var(--grey); max-width: 60ch; font-size: 1rem; margin-bottom: 2.5rem; }
+.split { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: start; }
+.about p { color: var(--grey); font-size: 1.05rem; line-height: 1.8; max-width: 58ch; }
+.about p:first-of-type { font-family: var(--serif); font-size: 1.45rem; color: var(--white); line-height: 1.4; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+.facts div { border-top: 1px solid var(--line); padding-top: 1rem; font-size: .85rem; color: var(--grey); }
+.facts strong { display: block; font-family: var(--serif); font-size: 1.6rem; color: var(--white); font-weight: 500; margin-bottom: .2rem; }
+
+/* menu */
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+.menu-list { list-style: none; padding: 0; margin: 0; }
+.menu-list li { display: grid; grid-template-columns: 1fr auto; gap: .5rem 1.5rem; padding: 1.15rem 0; border-bottom: 1px solid var(--line-2); align-items: baseline; }
+.menu-list .n { font-family: var(--serif); font-size: 1.4rem; color: var(--white); font-weight: 500; }
+.menu-list .d { grid-column: 1 / -1; color: var(--grey); font-size: .93rem; line-height: 1.6; }
+.menu-list .price { font-family: var(--serif); font-size: 1.2rem; color: var(--grey); }
+.menu-list li.off .n { color: var(--grey-2); }
+.menu-list li.off .price { font-family: var(--sans); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--grey-2); border: 1px solid var(--line-2); padding: .25rem .55rem; }
+.menu-head { font-family: var(--sans); font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--white); font-weight: 600; padding-bottom: .8rem; border-bottom: 1px solid var(--white); margin: 0 0 .3rem; }
+.menu-note { font-family: var(--serif); font-style: italic; color: var(--grey); font-size: 1.05rem; margin-top: 1.4rem; }
+
+/* reservation form */
+.resv { background: var(--char); border: 1px solid var(--line-2); padding: clamp(1.6rem, 4vw, 3.5rem); }
+.resv h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; }
+.resv .sub { color: var(--grey); margin-bottom: 2rem; }
+.field { margin-bottom: 1.6rem; }
+.field > label, .field > .lbl { display: block; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--grey); margin-bottom: .6rem; }
+.field .help { font-size: .88rem; color: var(--grey-2); margin: .5rem 0 0; }
+input[type=text], input[type=date], textarea, select, input[type=number] { width: 100%; padding: .85rem 1rem; border: 1px solid var(--line); background: var(--black); color: var(--white); border-radius: 0; }
+input:focus, textarea:focus, select:focus { border-color: var(--white); outline: none; }
+input::placeholder { color: var(--grey-2); }
+textarea { min-height: 76px; resize: vertical; }
+.chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+.chip { border: 1px solid var(--line); background: transparent; color: var(--white); padding: .7rem 1.2rem; font-size: .9rem; font-weight: 500; transition: background .15s, border-color .15s, color .15s; }
+.chip:hover { border-color: var(--white); }
+.chip[aria-pressed="true"] { background: var(--white); color: var(--black); border-color: var(--white); }
+.chip[disabled] { opacity: .35; cursor: not-allowed; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.err { border-left: 3px solid var(--red); background: rgba(200,16,46,.12); color: var(--white); padding: .8rem 1rem; margin-bottom: 1.4rem; font-size: .95rem; }
+.confirm { background: var(--char); border: 1px solid var(--line-2); padding: clamp(1.6rem, 4vw, 3.5rem); }
+.confirm h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; }
+.confirm .sub { color: var(--grey); margin-bottom: 1.5rem; }
+.ticket { border: 1px solid var(--line); padding: 1.3rem 1.5rem; margin: 0 0 2.2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem 2rem; }
+.ticket div span { display: block; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--grey-2); margin-bottom: .3rem; }
+.ticket div b { font-family: var(--serif); font-weight: 500; font-size: 1.25rem; color: var(--white); }
+.table-list { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.table-list th { text-align: left; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--grey); border-bottom: 1px solid var(--line); padding: .6rem .5rem; }
+.table-list td { padding: .75rem .5rem; border-bottom: 1px solid var(--line-2); }
+.tag { display: inline-block; font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--grey); border: 1px solid var(--line); padding: .1rem .45rem; margin-left: .5rem; vertical-align: middle; }
+.closed { border: 1px solid var(--line-2); background: var(--char); padding: clamp(1.6rem, 4vw, 3.5rem); }
+.closed h2 { font-size: 2.2rem; font-weight: 400; }
+.closed p { color: var(--grey); }
+.guests h3 { font-size: 1.8rem; font-weight: 400; margin-bottom: 1rem; }
+
+footer { padding: 3rem 0; color: var(--grey-2); font-size: .85rem; border-top: 1px solid var(--line-2); margin-top: 5rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+footer a { color: var(--grey); text-decoration: none; } footer a:hover { color: var(--white); }
+
+/* ---------- admin (light) ---------- */
+.admin { background: var(--paper); color: var(--ink); min-height: 100vh; }
+.admin .nav { background: #fff; border-bottom: 1px solid var(--rule); }
+.admin .mark .wordmark { color: var(--ink); }
+.admin .mark .office { color: var(--ink-soft); border-left-color: var(--rule); }
+.admin input[type=text], .admin input[type=date], .admin textarea, .admin select, .admin input[type=number] { background: #fff; color: var(--ink); border-color: var(--rule); }
+.admin input::placeholder { color: #9a9a9e; }
+.admin .field > label, .admin .field > .lbl { color: var(--ink-soft); }
+.tabs { display: flex; gap: 0; margin: 1.5rem 0 1.8rem; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button { background: none; border: 0; padding: .8rem 1.1rem; color: var(--ink-soft); border-bottom: 2px solid transparent; margin-bottom: -1px; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--red); }
+.card { background: var(--paper-2); border: 1px solid var(--rule); padding: 1.4rem 1.6rem; margin-bottom: 1.2rem; }
+.card h3 { font-size: 1.45rem; font-weight: 500; margin-bottom: .8rem; }
+.card h3 small { font-family: var(--sans); color: var(--ink-soft); font-size: .8rem; margin-left: .6rem; letter-spacing: .06em; }
+.row { display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; }
+.row .field { margin: 0; flex: 1 1 160px; }
+.btn-sm { display: inline-flex; align-items: center; font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; padding: .6rem .95rem; border: 1px solid var(--ink); background: #fff; color: var(--ink); min-height: 40px; text-decoration: none; }
+.btn-sm.red { background: var(--red); border-color: var(--red); color: #fff; }
+.btn-sm.danger { border-color: transparent; background: none; color: var(--red-dark); padding-left: .3rem; padding-right: .3rem; }
+.dinner-row { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; padding: .85rem 0; border-bottom: 1px solid var(--rule); }
+.dinner-row.current { background: #fbf3e6; margin: 0 -.6rem; padding: .85rem .6rem; }
+.dinner-row strong { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; min-width: 150px; }
+.pill { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; padding: .2rem .55rem; background: var(--ink); color: #fff; }
+.pill.open { background: var(--ok); } .pill.closed { background: var(--ink-soft); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+.stat { font-family: var(--serif); font-size: 2.4rem; color: var(--ink); line-height: 1; font-weight: 500; }
+.stat + div { color: var(--ink-soft); font-size: .85rem; margin-top: .3rem; }
+.ing { list-style: none; padding: 0; margin: .4rem 0 1rem; }
+.ing li { padding: .3rem 0; border-bottom: 1px solid var(--rule); font-size: .95rem; }
+.steps { padding-left: 1.2rem; margin: .4rem 0; color: var(--ink-soft); font-size: .92rem; }
+.steps li { margin-bottom: .35rem; }
+.mult { float: right; font-family: var(--sans); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--ink); border: 1px solid var(--ink); padding: .2rem .55rem; }
+.shop h3 { border-bottom: 1px solid var(--ink); padding-bottom: .5rem; }
+.shop label { display: flex; gap: .7rem; align-items: baseline; padding: .45rem 0; border-bottom: 1px solid var(--rule); font-size: .95rem; }
+.shop label input { transform: scale(1.15); accent-color: var(--red); }
+.shop label.done { text-decoration: line-through; color: var(--ink-soft); }
+.shop .from { display: block; font-size: .78rem; color: var(--ink-soft); }
+.toggle { display: flex; align-items: center; gap: .9rem; padding: .6rem 0; border-bottom: 1px solid var(--rule); }
+.toggle input { transform: scale(1.25); accent-color: var(--red); }
+.toggle .nm { flex: 1; font-weight: 500; }
+.toggle .nm small { display: block; color: var(--ink-soft); font-size: .84rem; font-weight: 400; }
+.settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .9rem 1.2rem; }
+.settings-grid label { font-size: .9rem; display: block; }
+.settings-grid label span { display: block; color: var(--ink-soft); margin-bottom: .3rem; font-size: .8rem; }
+.allergy { color: var(--red-dark); font-weight: 700; }
+.admin .table-list th { color: var(--ink-soft); border-bottom-color: var(--ink); }
+.admin .table-list td { border-bottom-color: var(--rule); }
+.admin .tag { color: var(--ink-soft); border-color: var(--rule); }
+.saved { position: fixed; bottom: 1rem; right: 1rem; background: var(--ink); color: #fff; padding: .55rem 1rem; font-size: .85rem; opacity: 0; transition: opacity .25s; pointer-events: none; }
+.saved.show { opacity: 1; }
+.notice { background: #fbf3e6; border-left: 3px solid var(--red); padding: .9rem 1.1rem; font-size: .92rem; margin-bottom: 1.4rem; }
+.notice.ok { background: #e9f3ec; border-left-color: var(--ok); }
+code { background: #ecebe7; padding: .1rem .35rem; font-size: .88em; font-family: ui-monospace, Menlo, monospace; }
+.custom-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr auto; gap: .5rem; margin-bottom: .4rem; }
+.custom-row input, .custom-row select { padding: .5rem .6rem; }
+.btn, .btn-sm, .chip { min-height: 44px; }
+input, select, textarea { font-size: max(16px, 1em); }
+
+@media (max-width: 900px) { .split, .menu-grid { grid-template-columns: 1fr; gap: 3rem; } .nav-links { gap: 1.2rem; } .nav-links a:not(.cta) { display: none; } }
+@media (max-width: 640px) {
+  .wrap { width: min(1120px, 100% - 2rem); }
+  .hero { min-height: 0; padding: 4.5rem 0 3.5rem; }
+  .two { grid-template-columns: 1fr; gap: 0; }
+  .facts { grid-template-columns: 1fr 1fr; }
+  section.block { padding: 3.5rem 0; }
+  .mark .office { display: none; }
+  .mark .wordmark { font-size: 1.35rem; }
+  .table-list.stack thead { display: none; }
+  .table-list.stack tr { display: block; border: 1px solid var(--rule); padding: .6rem .8rem; margin-bottom: .7rem; background: #fff; }
+  .table-list.stack td { display: flex; gap: .6rem; border: 0; padding: .2rem 0; }
+  .table-list.stack td::before { content: attr(data-label); flex: 0 0 5.5rem; color: var(--ink-soft); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
+  .table-list.stack td.no-print { justify-content: flex-end; }
+  .row .field { flex-basis: 100%; }
+  .settings-grid { grid-template-columns: 1fr 1fr; }
+  .custom-row { grid-template-columns: 1fr 1fr; }
+}
+@media print {
+  body { background: #fff; color: #000; }
+  .nav, .tabs, .btn, .btn-sm, footer, .no-print { display: none !important; }
+  .admin { background: #fff; }
+  .card { border: 0; padding: 0; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="saved" id="saved">Saved</div>
+
+<script>
+/* =========================================================
+   SETUP — the only line you need to edit after deploying
+   the Google Apps Script (see README). Leave "" to run in
+   demo mode, which keeps orders in this browser only.
+   ========================================================= */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFnKNhnTxJHS-NCzt9-Kb1ulumAvq9rRECU1e_tzUGwfGCxRVSlDUnOfqB1I9_uor_Bg/exec";
+/* ========================================================= */
+</script>
+
+<script>
+/* ===================== CHRIBACHI ENGINE =====================
+   Menu, recipes, portion math, recipe scaling, shopping list.
+   Recipe quantities adapted from jasonfarmer.com's Benihana series.
+   ============================================================ */
+
+const DEFAULT_SETTINGS = {
+  comboFactor: 0.6,      // each protein when a guest picks two
+  kidFactor: 0.5,        // kid portion vs adult
+  padFactor: 1.10,       // "make a little more than less"
+  shrimpPerPerson: 6,    // large shrimp (16/20) per adult dinner
+  appShrimpPerPerson: 4, // small shrimp (41/50) per adult, appetizer
+  chickenOz: 7,
+  steakOz: 7,
+  whiteRiceCupsPerPerson: 0.5, // uncooked calrose
+};
+
+const DEFAULT_MENU = {
+  proteins: [
+    { id: 'chicken',  name: 'Hibachi Chicken', desc: 'Chicken breast seared whole and diced on the griddle with mushrooms, hibachi garlic butter, lemon and sesame.', enabled: true,  recipe: 'chicken' },
+    { id: 'steak',    name: 'Hibachi Steak',   desc: 'Choice New York strip, seared whole, rested and cut into bite-size pieces with mushrooms and garlic butter.', enabled: true,  recipe: 'steak' },
+    { id: 'shrimp',   name: 'Hibachi Shrimp',  desc: 'Jumbo shrimp seared on the griddle and finished with hibachi garlic butter and fresh lemon.', enabled: true,  recipe: 'shrimp' },
+    { id: 'calamari', name: 'Hibachi Calamari', desc: 'Griddle-seared calamari with garlic butter. Available at a future seating.', enabled: false, recipe: null },
+  ],
+  rice: [
+    { id: 'white',       name: 'Steamed White Rice', enabled: true, recipe: 'whiteRice' },
+    { id: 'friedShrimp',  name: 'Shrimp Fried Rice',     enabled: true, recipe: 'friedRiceShrimp' },
+    { id: 'friedChicken', name: 'Chicken Fried Rice',    enabled: true, recipe: 'friedRiceChicken' },
+    { id: 'friedVeg',     name: 'Vegetable Fried Rice',  enabled: true, recipe: 'friedRiceVeg' },
+  ],
+  // Served to everyone automatically when enabled
+  courses: [
+    { id: 'soup',         name: 'Onion Soup',            desc: 'Clear onion broth with thinly sliced mushrooms, scallions and crispy onions.', enabled: true, recipe: 'soup' },
+    { id: 'salad',        name: 'Salad + Ginger Dressing', desc: 'Iceberg, cabbage, carrot and tomato with house-made ginger dressing.', enabled: true, recipe: ['salad', 'dressing'] },
+    { id: 'appShrimp',    name: 'Shrimp Appetizer',      desc: 'Shrimp seared with garlic butter and lemon, served before the entrée.', enabled: true, recipe: 'appShrimp' },
+    { id: 'veg',          name: 'Hibachi Vegetables',    desc: 'Zucchini, onion and mushrooms, seared separately and finished with garlic butter and soy.', enabled: true, recipe: 'veg' },
+    { id: 'gingerSauce',  name: 'Ginger Sauce',          desc: 'The traditional seafood dipping sauce: fresh ginger, onion, soy and seasoned rice vinegar.', enabled: true, recipe: 'gingerSauce' },
+    { id: 'mustardSauce', name: 'Mustard Sauce',         desc: 'For steak and chicken: toasted sesame, soy, dry mustard and cream.', enabled: true, recipe: 'mustardSauce' },
+  ],
+  custom: [], // { id, name, category:'protein'|'side', enabled, perPerson:[{item, qty, unit, section}] }
+};
+
+/* ---------- Shopping catalog: how recipe units map to what you buy ---------- */
+// base = the unit we total in. conv = multiply a recipe qty in that unit to get base units.
+// pkg = round-up increment in base units. pantry = show as "check pantry" instead of a buy line.
+const ITEMS = {
+  chicken_breast: { name: 'Chicken breast, boneless skinless', section: 'Meat & Seafood', base: 'oz', conv: { oz: 1, lb: 16 }, pkg: 8, show: 'lb' },
+  ny_strip:       { name: 'NY strip steak, choice, ¾" thick', section: 'Meat & Seafood', base: 'oz', conv: { oz: 1, lb: 16 }, pkg: 4, show: 'lb', note: v => `≈ ${Math.ceil(v / 7.5)} steaks at 7–8 oz` },
+  shrimp_large:   { name: 'Large shrimp, 16/20, peeled & deveined', section: 'Meat & Seafood', base: 'each', conv: { each: 1 }, pkg: 18, pkgLabel: '1 lb bag' },
+  shrimp_small:   { name: 'Small shrimp, 41/50, peeled & deveined', section: 'Meat & Seafood', base: 'each', conv: { each: 1 }, pkg: 45, pkgLabel: '1 lb bag' },
+  calrose:        { name: 'Calrose rice', section: 'Pantry & Cans', base: 'cup', conv: { cup: 1 }, pkg: 11, pkgLabel: '5 lb bag', show: 'cup' },
+  eggs:           { name: 'Eggs, large', section: 'Dairy & Eggs', base: 'each', conv: { each: 1 }, pkg: 12, pkgLabel: 'dozen' },
+  butter:         { name: 'Unsalted butter', section: 'Dairy & Eggs', base: 'stick', conv: { stick: 1, tbsp: 1 / 8 }, pkg: 4, pkgLabel: '1 lb (4 sticks)' },
+  heavy_cream:    { name: 'Heavy whipping cream', section: 'Dairy & Eggs', base: 'cup', conv: { cup: 1 }, pkg: 2, pkgLabel: 'pint' },
+  yellow_onion:   { name: 'Yellow onion, large', section: 'Produce', base: 'each', conv: { each: 1, cup: 1 / 1.5, oz: 1 / 10 }, pkg: 1 },
+  white_onion:    { name: 'White onion', section: 'Produce', base: 'each', conv: { each: 1, cup: 1 / 1.5 }, pkg: 1 },
+  carrot:         { name: 'Carrots', section: 'Produce', base: 'each', conv: { each: 1, cup: 1 / 0.75, tbsp: 1 / 12 }, pkg: 1 },
+  celery:         { name: 'Celery', section: 'Produce', base: 'stalk', conv: { stalk: 1, cup: 2, tbsp: 1 / 8 }, pkg: 8, pkgLabel: 'bunch' },
+  green_onion:    { name: 'Green onions', section: 'Produce', base: 'stalk', conv: { stalk: 1, each: 1, tbsp: 1 / 2 }, pkg: 6, pkgLabel: 'bunch' },
+  garlic:         { name: 'Garlic', section: 'Produce', base: 'clove', conv: { clove: 1, tsp: 1 }, pkg: 10, pkgLabel: 'head' },
+  ginger:         { name: 'Fresh ginger', section: 'Produce', base: 'oz', conv: { oz: 1, tbsp: 0.5 }, pkg: 2, show: 'oz' },
+  lemon:          { name: 'Lemons', section: 'Produce', base: 'each', conv: { each: 1, quarter: 0.25, tbsp: 1 / 3, tsp: 1 / 9 }, pkg: 1 },
+  zucchini:       { name: 'Zucchini, medium', section: 'Produce', base: 'each', conv: { each: 1 }, pkg: 1 },
+  mushrooms:      { name: 'White button mushrooms', section: 'Produce', base: 'oz', conv: { oz: 1, each: 0.6 }, pkg: 8, pkgLabel: '8 oz pack' },
+  iceberg:        { name: 'Iceberg lettuce', section: 'Produce', base: 'head', conv: { head: 1 }, pkg: 1 },
+  cabbage:        { name: 'Green cabbage', section: 'Produce', base: 'head', conv: { head: 1 }, pkg: 1 },
+  tomato:         { name: 'Tomatoes', section: 'Produce', base: 'each', conv: { each: 1 }, pkg: 1 },
+  beef_consomme:  { name: "Campbell's condensed beef consommé (10.5 oz)", section: 'Pantry & Cans', base: 'can', conv: { can: 1 }, pkg: 1 },
+  chicken_broth:  { name: "Campbell's condensed chicken broth (10.5 oz)", section: 'Pantry & Cans', base: 'can', conv: { can: 1 }, pkg: 1 },
+  fried_onions:   { name: "French's crispy fried onions", section: 'Pantry & Cans', base: 'oz', conv: { oz: 1 }, pkg: 6, pkgLabel: '6 oz container' },
+  soy:            { name: 'Kikkoman soy sauce', section: 'Pantry & Cans', base: 'tbsp', conv: { tbsp: 1, cup: 16, tsp: 1 / 3 }, pantry: true, show: 'cup' },
+  sesame:         { name: 'Sesame seeds', section: 'Spices & Oils', base: 'tbsp', conv: { tbsp: 1, tsp: 1 / 3 }, pantry: true },
+  oil_neutral:    { name: 'Neutral oil (safflower, vegetable, canola)', section: 'Spices & Oils', base: 'tbsp', conv: { tbsp: 1, cup: 16 }, pantry: true, show: 'cup' },
+  peanut_oil:     { name: 'Peanut oil (or any neutral oil)', section: 'Spices & Oils', base: 'cup', conv: { cup: 1 }, pantry: true },
+  rice_vin_plain: { name: 'Rice vinegar, unseasoned', section: 'Spices & Oils', base: 'cup', conv: { cup: 1 }, pantry: true },
+  rice_vin_seas:  { name: 'Rice vinegar, seasoned', section: 'Spices & Oils', base: 'cup', conv: { cup: 1 }, pantry: true },
+  tomato_paste:   { name: 'Tomato paste', section: 'Pantry & Cans', base: 'tbsp', conv: { tbsp: 1 }, pantry: true },
+  sugar:          { name: 'Sugar', section: 'Pantry & Cans', base: 'tbsp', conv: { tbsp: 1 }, pantry: true },
+  kosher_salt:    { name: 'Kosher salt', section: 'Spices & Oils', base: 'tsp', conv: { tsp: 1 }, pantry: true },
+  black_pepper:   { name: 'Black pepper', section: 'Spices & Oils', base: 'tsp', conv: { tsp: 1 }, pantry: true },
+  peppercorns:    { name: 'Whole black peppercorns', section: 'Spices & Oils', base: 'tsp', conv: { tsp: 1 }, pantry: true },
+  mustard_powder: { name: "Colman's mustard powder", section: 'Spices & Oils', base: 'tsp', conv: { tsp: 1 }, pantry: true },
+  garlic_powder:  { name: 'Garlic powder', section: 'Spices & Oils', base: 'tsp', conv: { tsp: 1 }, pantry: true },
+  water:          { name: 'Water', section: 'skip', base: 'cup', conv: { cup: 1, tsp: 1 / 48 }, skip: true },
+};
+const SECTION_ORDER = ['Meat & Seafood', 'Produce', 'Dairy & Eggs', 'Pantry & Cans', 'Spices & Oils', 'Other'];
+
+/* ---------- Recipes. `base` = what one batch yields, in the unit used for demand ---------- */
+const RECIPES = {
+  chicken: {
+    name: 'Hibachi Chicken', src: 'https://jasonfarmer.com/hibachi-chicken-recipe/',
+    base: { kind: 'chickenOz', amount: 8 }, batchLabel: 'per 8 oz breast',
+    ing: [
+      { item: 'chicken_breast', qty: 8, unit: 'oz', label: 'chicken breast, butterflied into ½" cutlets' },
+      { item: 'mushrooms', qty: 4, unit: 'each', label: 'white mushrooms, cut in 6–8 pieces' },
+      { item: 'oil_neutral', qty: 1, unit: 'tbsp' },
+      { item: 'GB', qty: 1, unit: 'tbsp', label: 'garlic butter' },
+      { item: 'lemon', qty: 0.25, unit: 'quarter', label: 'lemon (a quarter)' },
+      { item: 'sesame', qty: 1, unit: 'tbsp' },
+    ],
+    steps: [
+      'Sauté the mushrooms with a pinch of salt until dry and browned. Set aside.',
+      'Pat cutlets dry, salt them, sear whole on the Blackstone 3–5 min per side. Do not cut first.',
+      'Rest 3–5 min, then cut into strips and cubes.',
+      'Back on the griddle with the mushrooms and garlic butter until coated. Salt, pepper.',
+      'Off heat: lemon juice and sesame seeds.',
+    ],
+  },
+  steak: {
+    name: 'Hibachi Steak', src: 'https://jasonfarmer.com/hibachi-steak-recipe/',
+    base: { kind: 'steakOz', amount: 7 }, batchLabel: 'per 7 oz steak',
+    ing: [
+      { item: 'ny_strip', qty: 7, unit: 'oz', label: 'NY strip, choice, ¾" thick' },
+      { item: 'mushrooms', qty: 2, unit: 'each', label: 'white mushrooms, thick sliced' },
+      { item: 'oil_neutral', qty: 1, unit: 'tbsp' },
+      { item: 'GB', qty: 1, unit: 'tbsp', label: 'garlic butter' },
+    ],
+    steps: [
+      'Sauté mushrooms with salt until browned. Set aside.',
+      'Salt the steak. Render the fat cap on its edge 1–2 min, then sear each side 2–5 min, slightly under.',
+      'Rest 5–10 min on a rack. Trim fat cap if you like, then cut into strips and cubes.',
+      'Cubes back on the griddle to finish; last minute add mushrooms and garlic butter. Salt, cracked pepper.',
+    ],
+  },
+  shrimp: {
+    name: 'Hibachi Shrimp', src: 'https://jasonfarmer.com/hibachi-shrimp-recipe/',
+    base: { kind: 'shrimpLarge', amount: 12 }, batchLabel: 'per 12 shrimp',
+    ing: [
+      { item: 'shrimp_large', qty: 12, unit: 'each', label: 'large shrimp, peeled & deveined' },
+      { item: 'oil_neutral', qty: 1, unit: 'tbsp' },
+      { item: 'GB', qty: 1, unit: 'tbsp', label: 'garlic butter' },
+      { item: 'lemon', qty: 0.25, unit: 'quarter', label: 'lemon (a quarter)' },
+    ],
+    steps: [
+      'Optional brine: 2 tbsp kosher salt + 2 tbsp sugar per quart of water, 20–30 min, then dry well.',
+      'Pat very dry. Salt. Sear on medium until golden on each side.',
+      'Kill the heat, add garlic butter, swirl to coat. Lemon to taste. Halve for the restaurant look.',
+    ],
+  },
+  appShrimp: {
+    name: 'Shrimp Appetizer', src: 'https://jasonfarmer.com/hibachi-shrimp-recipe/',
+    base: { kind: 'shrimpSmall', amount: 12 }, batchLabel: 'per 12 small shrimp',
+    ing: [
+      { item: 'shrimp_small', qty: 12, unit: 'each', label: 'small shrimp, peeled & deveined' },
+      { item: 'oil_neutral', qty: 1, unit: 'tbsp' },
+      { item: 'GB', qty: 1, unit: 'tbsp', label: 'garlic butter' },
+      { item: 'lemon', qty: 0.25, unit: 'quarter', label: 'lemon (a quarter)' },
+    ],
+    steps: [
+      'Same as the dinner shrimp: dry, salt, quick sear, garlic butter off heat, lemon.',
+      'Serve first, while the soup bowls are still on the table.',
+    ],
+  },
+  whiteRice: {
+    name: 'Steamed White Rice', src: 'https://jasonfarmer.com/benihana-fried-rice-recipe/',
+    base: { kind: 'whiteRiceServings', amount: 4 }, batchLabel: 'per 4 servings',
+    ing: [{ item: 'calrose', qty: 2, unit: 'cup', label: 'calrose rice, uncooked' }],
+    steps: [
+      'Rinse 3–5 times until the water runs mostly clear.',
+      'Rice cooker on the standard setting, or stovetop 1:1 water plus 1 tbsp, boil, lid on, 10 min low, 10 min off heat.',
+    ],
+  },
+  friedRiceChicken: friedRice('Chicken Fried Rice', 'friedChickenServings', { item: 'chicken_breast', qty: 2, unit: 'oz', label: 'chicken breast, thin cutlet' }),
+  friedRiceShrimp:  friedRice('Shrimp Fried Rice',  'friedShrimpServings',  { item: 'shrimp_small', qty: 6, unit: 'each', label: 'small shrimp, chopped' }),
+  friedRiceVeg:     friedRice('Vegetable Fried Rice', 'friedVegServings', null),
+  soup: {
+    name: 'Onion Soup (grocery-store version)', src: 'https://jasonfarmer.com/benihana-hibachi-onion-soup-recipe/',
+    base: { kind: 'headcount', amount: 8 }, batchLabel: 'per 8 bowls',
+    ing: [
+      { item: 'oil_neutral', qty: 2, unit: 'tbsp' },
+      { item: 'garlic', qty: 4, unit: 'clove', label: 'garlic cloves, crushed' },
+      { item: 'yellow_onion', qty: 1.5, unit: 'cup', label: 'onion, rough chop' },
+      { item: 'carrot', qty: 0.75, unit: 'cup', label: 'carrot, rough chop' },
+      { item: 'celery', qty: 0.75, unit: 'cup', label: 'celery, rough chop' },
+      { item: 'beef_consomme', qty: 1, unit: 'can', label: "Campbell's beef consommé" },
+      { item: 'chicken_broth', qty: 1, unit: 'can', label: "Campbell's condensed chicken broth" },
+      { item: 'water', qty: 6, unit: 'cup' },
+      { item: 'kosher_salt', qty: 2, unit: 'tsp', label: 'kosher salt, plus 3–5 tsp more at the end' },
+      { item: 'peppercorns', qty: 0.5, unit: 'tsp' },
+      { item: 'mushrooms', qty: 4, unit: 'each', label: 'mushrooms, paper-thin, for garnish' },
+      { item: 'green_onion', qty: 2, unit: 'each', label: 'green onions, thin sliced, for garnish' },
+      { item: 'fried_onions', qty: 4, unit: 'oz', label: "French's fried onions, for garnish" },
+    ],
+    steps: [
+      'Brown the crushed garlic in oil, remove. Caramelize onion, carrot, celery — real color, not just soft.',
+      'Garlic back in. Add both cans, boil, simmer 3 min. Add the water, salt, peppercorns. Light simmer 45 min.',
+      'Strain (don’t press). Season with salt ½ tsp at a time until it tastes like the restaurant — expect 3–5 tsp.',
+      'Bowl: pinch of fried onions, a few mushroom slices, scallions. Ladle hot broth over.',
+    ],
+  },
+  salad: {
+    name: 'House Salad', src: 'https://jasonfarmer.com/benihana-ginger-salad-dressing-recipe/',
+    base: { kind: 'headcount', amount: 4 }, batchLabel: 'per 4 salads',
+    ing: [
+      { item: 'iceberg', qty: 0.5, unit: 'head', label: 'iceberg, cut in bite-size squares' },
+      { item: 'cabbage', qty: 0.25, unit: 'head', label: 'cabbage, shaved paper-thin' },
+      { item: 'carrot', qty: 1, unit: 'each', label: 'carrot, fine shreds' },
+      { item: 'tomato', qty: 1, unit: 'each', label: 'tomato, sliced' },
+    ],
+    steps: [
+      'Toss the lettuce with dressing first, then plate with a dollop on top and the cabbage, carrot and tomato on the dollop.',
+      'Cut lettuce keeps crisp in a zip bag with the air pushed out.',
+    ],
+  },
+  dressing: {
+    name: 'Ginger Salad Dressing', src: 'https://jasonfarmer.com/benihana-ginger-salad-dressing-recipe/',
+    base: { kind: 'headcount', amount: 12 }, batchLabel: 'per 12 servings',
+    ing: [
+      { item: 'white_onion', qty: 0.5, unit: 'cup', label: 'white onion, chopped' },
+      { item: 'peanut_oil', qty: 0.5, unit: 'cup' },
+      { item: 'rice_vin_plain', qty: 0.25, unit: 'cup', label: 'unseasoned rice vinegar' },
+      { item: 'water', qty: 0.25, unit: 'cup' },
+      { item: 'ginger', qty: 2, unit: 'tbsp', label: 'fresh ginger, chopped' },
+      { item: 'celery', qty: 2, unit: 'tbsp', label: 'celery, chopped' },
+      { item: 'soy', qty: 2, unit: 'tbsp' },
+      { item: 'tomato_paste', qty: 1, unit: 'tbsp' },
+      { item: 'sugar', qty: 1, unit: 'tbsp' },
+      { item: 'lemon', qty: 2, unit: 'tsp', label: 'lemon juice' },
+      { item: 'kosher_salt', qty: 0.25, unit: 'tsp' },
+      { item: 'black_pepper', qty: 0.125, unit: 'tsp' },
+    ],
+    steps: ['Everything in the blender. Pulse 30–60 sec, slightly chunky, not liquid.', 'Fridge at least 2 hours. Shake before using.'],
+  },
+  gingerSauce: {
+    name: 'Ginger Dipping Sauce', src: 'https://jasonfarmer.com/benihana-ginger-dipping-sauce-recipe/',
+    base: { kind: 'headcount', amount: 8 }, batchLabel: 'per 8 servings',
+    ing: [
+      { item: 'yellow_onion', qty: 2.5, unit: 'oz', label: 'onion, thin sliced' },
+      { item: 'ginger', qty: 1, unit: 'oz', label: 'ginger, peeled, thin sliced' },
+      { item: 'lemon', qty: 1, unit: 'each', label: 'lemon: zest of one + 1½ tbsp juice' },
+      { item: 'soy', qty: 1, unit: 'cup' },
+      { item: 'rice_vin_seas', qty: 0.5, unit: 'cup', label: 'seasoned rice vinegar' },
+    ],
+    steps: ['Food processor, pulse 20–60 sec until chunky. Do not run it smooth.', 'Fridge a few hours; better the next day. Pinch of sugar if it’s sharp.'],
+  },
+  mustardSauce: {
+    name: 'Mustard Dipping Sauce', src: 'https://jasonfarmer.com/benihana-mustard-dipping-sauce-recipe/',
+    base: { kind: 'headcount', amount: 12 }, batchLabel: 'per 12 servings',
+    ing: [
+      { item: 'sesame', qty: 2.5, unit: 'tbsp', label: 'sesame seeds, toasted' },
+      { item: 'soy', qty: 1, unit: 'cup' },
+      { item: 'mustard_powder', qty: 0.5, unit: 'tsp', label: "Colman's mustard powder" },
+      { item: 'water', qty: 0.5, unit: 'tsp' },
+      { item: 'garlic_powder', qty: 0.125, unit: 'tsp' },
+      { item: 'heavy_cream', qty: 0.5, unit: 'cup' },
+    ],
+    steps: ['Toast sesame seeds in a dry pan until light gold, 3–5 min.', 'Blend seeds, soy, mustard powder, water, garlic powder until no whole seeds remain.', 'Warm the cream (not boiling), whisk in the soy mix. Serve warm; thin with warm cream if it thickens.'],
+  },
+  veg: {
+    name: 'Hibachi Vegetables', src: 'https://jasonfarmer.com/hibachi-vegetables-recipe/',
+    base: { kind: 'vegServings', amount: 4 }, batchLabel: 'per 4 servings',
+    ing: [
+      { item: 'zucchini', qty: 2, unit: 'each', label: 'zucchini, cut in ⅓" planks' },
+      { item: 'yellow_onion', qty: 1, unit: 'each', label: 'large onion, ½" rounds cut in quarters' },
+      { item: 'mushrooms', qty: 8, unit: 'oz', label: 'mushrooms, 3–4 pieces per cap' },
+      { item: 'oil_neutral', qty: 3, unit: 'tbsp' },
+      { item: 'GB', qty: 3, unit: 'tbsp', label: 'garlic butter (1 per vegetable)' },
+      { item: 'soy', qty: 1, unit: 'tbsp' },
+      { item: 'sesame', qty: 1, unit: 'tbsp' },
+    ],
+    steps: [
+      'Zucchini: oil, lay flat, no salt yet. Sear both sides, then garlic butter, salt, pepper, 1 tsp soy. Cut planks in 6, sesame.',
+      'Onion: medium-high, leave alone 2 min, stir, 2 more. Salt, pepper, garlic butter, soy. Sesame.',
+      'Mushrooms: salt right away so they dump water. Cook down, then garlic butter, pepper, a little soy. No garnish.',
+    ],
+  },
+};
+
+function friedRice(name, kind, protein) {
+  const ing = [
+    { item: 'calrose', qty: 1, unit: 'cup', label: 'calrose rice, uncooked (≈2 cups cooked)' },
+    { item: 'eggs', qty: 2, unit: 'each', label: 'eggs, beaten' },
+  ];
+  if (protein) ing.push(protein);
+  ing.push(
+    { item: 'yellow_onion', qty: 0.5, unit: 'cup', label: 'onion, fine dice' },
+    { item: 'carrot', qty: 2, unit: 'tbsp', label: 'carrot, fine dice' },
+    { item: 'green_onion', qty: 2, unit: 'tbsp', label: 'green onion, thin sliced' },
+    { item: 'sesame', qty: 2, unit: 'tsp' },
+    { item: 'soy', qty: 1, unit: 'tbsp' },
+    { item: 'GB', qty: 1, unit: 'tbsp', label: 'garlic butter' },
+    { item: 'oil_neutral', qty: 1, unit: 'tbsp' },
+  );
+  return {
+    name, src: 'https://jasonfarmer.com/benihana-fried-rice-recipe/',
+    base: { kind, amount: 2 }, batchLabel: 'per 2 servings',
+    ing,
+    steps: [
+      'Cook rice ahead (rice cooker, “harder” setting) and let it dry out 15 min; stovetop rice wants a night uncovered in the fridge.',
+      protein ? 'Cook the protein first, dice small, toss with 1 tsp garlic butter. Set aside.' : 'Skip the protein — eggs carry this one.',
+      'Eggs: scramble small. Then onion + carrot 2 min, add green onion, off heat.',
+      'Fry rice 2 servings at a time on the griddle, 1 tsp oil per cup. Let it sit and separate.',
+      'Combine everything, add garlic butter, salt, pepper. Push rice aside, soy on the bare griddle, sizzle, stir through.',
+      'Sesame seeds at the end.',
+    ],
+  };
+}
+
+/* ---------- Demand: turn orders into what each recipe has to produce ---------- */
+function computeDemand(orders, config) {
+  const S = { ...DEFAULT_SETTINGS, ...(config.settings || {}) };
+  const menu = config.menu || DEFAULT_MENU;
+  const enabledProt = new Set(menu.proteins.filter(p => p.enabled).map(p => p.id));
+  const d = {
+    headcount: 0, adults: 0, kids: 0, plates: 0,
+    chickenOz: 0, steakOz: 0, shrimpLarge: 0, shrimpSmall: 0,
+    whiteRiceServings: 0, friedShrimpServings: 0, friedChickenServings: 0, friedVegServings: 0,
+    vegServings: 0, custom: {}, proteinCounts: {}, orders: orders.length,
+  };
+  for (const o of orders) {
+    const mult = o.kid ? S.kidFactor : 1;
+    d.headcount += 1; o.kid ? d.kids++ : d.adults++;
+    d.plates += mult;
+    const prots = (o.proteins || []).filter(p => enabledProt.has(p) || menu.custom.some(c => c.id === p && c.enabled));
+    const each = prots.length >= 2 ? S.comboFactor : 1;
+    for (const p of prots) {
+      d.proteinCounts[p] = (d.proteinCounts[p] || 0) + 1;
+      const f = each * mult;
+      if (p === 'chicken') d.chickenOz += S.chickenOz * f;
+      else if (p === 'steak') d.steakOz += S.steakOz * f;
+      else if (p === 'shrimp') d.shrimpLarge += S.shrimpPerPerson * f;
+      else d.custom[p] = (d.custom[p] || 0) + f;
+    }
+    const rice = o.rice || 'white';
+    if (rice === 'white' || rice === 'both') d.whiteRiceServings += mult;
+    if (rice === 'fried' || rice === 'both') {
+      const t = o.friedType || 'friedChicken';
+      if (t === 'friedShrimp') d.friedShrimpServings += mult;
+      else if (t === 'friedVeg') d.friedVegServings += mult;
+      else d.friedChickenServings += mult;
+    }
+    d.vegServings += mult;
+    d.shrimpSmall += S.appShrimpPerPerson * mult;
+  }
+  return { demand: d, settings: S };
+}
+
+function roundHalf(x) { return Math.max(0, Math.ceil(x * 2 - 1e-9) / 2); }
+
+/* ---------- Scale every enabled recipe to the demand ---------- */
+function computePrep(orders, config) {
+  const { demand: d, settings: S } = computeDemand(orders, config);
+  const menu = config.menu || DEFAULT_MENU;
+  const on = new Set();
+  menu.rice.filter(r => r.enabled).forEach(r => on.add(r.recipe));
+  menu.proteins.filter(p => p.enabled && p.recipe).forEach(p => on.add(p.recipe));
+  menu.courses.filter(c => c.enabled).forEach(c => (Array.isArray(c.recipe) ? c.recipe : [c.recipe]).forEach(r => on.add(r)));
+
+  const prep = [];
+  let gbTbsp = 0;
+  for (const [id, R] of Object.entries(RECIPES)) {
+    if (!on.has(id)) continue;
+    const need = d[R.base.kind] ?? 0;
+    if (need <= 0) continue;
+    // whole-recipe kinds (sauces/soup/salad by headcount) never go below 1 batch; others can be half batches
+    let mult = roundHalf((need * S.padFactor) / R.base.amount);
+    if (R.base.kind === 'headcount') mult = Math.max(1, mult);
+    else mult = Math.max(0.5, mult);
+    const ing = R.ing.map(i => ({ ...i, qty: i.qty * mult }));
+    if (id === 'whiteRice') ing[0].qty = S.whiteRiceCupsPerPerson * R.base.amount * mult;
+    ing.filter(i => i.item === 'GB').forEach(i => (gbTbsp += i.qty));
+    prep.push({ id, name: R.name, src: R.src, mult, need, base: R.base, batchLabel: R.batchLabel, ing, steps: R.steps });
+  }
+  // Custom items: per-person quantities × persons (protein items scale with portion factor)
+  const customPrep = [];
+  for (const c of (menu.custom || [])) {
+    if (!c.enabled) continue;
+    const persons = c.category === 'protein' ? (d.custom[c.id] || 0) : d.plates;
+    if (persons <= 0) continue;
+    customPrep.push({ id: c.id, name: c.name, custom: true, persons, ing: (c.perPerson || []).map(i => ({ ...i, qty: i.qty * persons * S.padFactor })) });
+  }
+  // Garlic butter: 1 stick = 8 tbsp; recipe is 3 sticks : 6 cloves : 2 tbsp soy
+  const sticks = gbTbsp > 0 ? Math.max(1, Math.ceil((gbTbsp * 1.15) / 8)) : 0;
+  const garlicButter = sticks ? {
+    id: 'garlicButter', name: 'Garlic Butter', src: 'https://jasonfarmer.com/benihana-garlic-butter-recipe/',
+    tbspNeeded: gbTbsp, sticks,
+    ing: [
+      { item: 'butter', qty: sticks, unit: 'stick', label: 'unsalted butter, room temp' },
+      { item: 'garlic', qty: sticks * 2, unit: 'clove', label: 'garlic, made into a paste' },
+      { item: 'soy', qty: sticks * 2, unit: 'tsp', label: 'Kikkoman soy sauce' },
+    ],
+    steps: ['Chop garlic to a paste. Shake it with the soy in a lidded jar for 30 sec.', 'Fold into soft butter a spoonful at a time until no liquid pools. Fridge 1 week, freezer 6 months.'],
+  } : null;
+  return { demand: d, settings: S, prep, customPrep, garlicButter };
+}
+
+/* ---------- Shopping list, grouped by store section, rounded up to packages ---------- */
+function computeShopping(orders, config) {
+  const P = computePrep(orders, config);
+  const totals = {};
+  const add = (item, qty, unit, fromName) => {
+    if (item === 'GB') return; // garlic butter is broken out into butter/garlic/soy below
+    const def = ITEMS[item];
+    if (!def) { // custom free-text item
+      const key = 'custom:' + item.toLowerCase();
+      totals[key] = totals[key] || { name: item, section: 'Other', base: unit, qty: 0, from: new Set(), custom: true };
+      totals[key].qty += qty; totals[key].from.add(fromName); return;
+    }
+    if (def.skip) return;
+    const conv = def.conv[unit];
+    if (conv == null) { console.warn('no conversion', item, unit); return; }
+    totals[item] = totals[item] || { ...def, id: item, qty: 0, from: new Set() };
+    totals[item].qty += qty * conv; totals[item].from.add(fromName);
+  };
+  for (const r of P.prep) r.ing.forEach(i => add(i.item, i.qty, i.unit, r.name));
+  if (P.garlicButter) P.garlicButter.ing.forEach(i => add(i.item, i.qty, i.unit, 'Garlic Butter'));
+  for (const c of P.customPrep) c.ing.forEach(i => add(i.item, i.qty, i.unit, c.name));
+
+  const sections = {};
+  for (const t of Object.values(totals)) {
+    const line = { ...t, from: [...t.from] };
+    if (t.custom) {
+      line.buy = `${fmtQty(t.qty)} ${t.base}`;
+    } else if (t.pantry) {
+      line.buy = `check pantry — need ${showAmount(t)}`;
+    } else {
+      const pkgs = Math.ceil(t.qty / t.pkg - 1e-9);
+      if (t.pkgLabel) line.buy = `${pkgs} × ${t.pkgLabel}` + ` (need ${showAmount(t)})`;
+      else if (t.show === 'lb') line.buy = `${(pkgs * t.pkg / 16).toFixed(2).replace(/\.?0+$/, '')} lb` + (t.note ? ` — ${t.note(t.qty)}` : '');
+      else if (t.show) line.buy = `${fmtQty(pkgs * t.pkg)} ${t.show}`;
+      else line.buy = `${pkgs} ${t.base === 'each' ? '' : t.base}`.trim();
+    }
+    (sections[line.section] = sections[line.section] || []).push(line);
+  }
+  const ordered = SECTION_ORDER.filter(s => sections[s]).map(s => ({ section: s, items: sections[s].sort((a, b) => a.name.localeCompare(b.name)) }));
+  return { ...P, sections: ordered };
+}
+
+function showAmount(t) {
+  if (t.base === 'oz' && t.show === 'lb') return `${(t.qty / 16).toFixed(1)} lb`;
+  if (t.base === 'tbsp' && t.show === 'cup') return t.qty >= 8 ? `${fmtQty(t.qty / 16)} cup` : `${fmtQty(t.qty)} tbsp`;
+  if (t.base === 'oz') return `${fmtQty(t.qty)} oz`;
+  return `${fmtQty(t.qty)} ${t.base}`;
+}
+
+function fmtQty(q) {
+  if (q == null) return '';
+  const whole = Math.floor(q + 1e-9), frac = q - whole;
+  const fr = frac < 0.06 ? '' : frac < 0.2 ? '⅛' : frac < 0.3 ? '¼' : frac < 0.4 ? '⅓' : frac < 0.6 ? '½' : frac < 0.7 ? '⅔' : frac < 0.85 ? '¾' : null;
+  if (fr === null) return String(Math.ceil(q));
+  if (!whole) return fr || '0';
+  return whole + (fr ? ' ' + fr : '');
+}
+// Human-friendly ingredient line for prep view (convert big tbsp/tsp counts)
+function fmtIng(i) {
+  let { qty, unit } = i;
+  if (unit === 'tsp' && qty >= 3) { qty = qty / 3; unit = 'tbsp'; }
+  if (unit === 'tbsp' && qty >= 8) { qty = qty / 16; unit = 'cup'; }
+  if (unit === 'oz' && qty >= 16 && ['chicken_breast', 'ny_strip', 'mushrooms'].includes(i.item)) { qty = qty / 16; unit = 'lb'; }
+  if (unit === 'quarter') { return `${fmtQty(qty)} ${qty === 1 ? 'lemon' : 'lemons'}`; }
+  const label = i.label || (ITEMS[i.item] ? ITEMS[i.item].name : i.item);
+  if (['each', 'clove', 'stalk', 'head', 'can', 'stick'].includes(unit)) {
+    const hasUnit = unit === 'each' || label.toLowerCase().includes(unit);
+    return `${fmtQty(qty)} ${hasUnit ? '' : unit + (qty > 1 ? 's ' : ' ')}${label}`;
+  }
+  return `${fmtQty(qty)} ${unit} ${label}`;
+}
+
+
+
+</script>
+
+<script>
+/* ===================== BACKEND ADAPTERS ===================== */
+const LS_KEY = 'chribachi.v1';
+const LocalBackend = {
+  mode: 'local',
+  _read() { try { return JSON.parse(localStorage.getItem(LS_KEY)) || { config: null, dinners: [], orders: [] }; } catch { return { config: null, dinners: [], orders: [] }; } },
+  _write(d) { try { localStorage.setItem(LS_KEY, JSON.stringify(d)); } catch {} },
+  async load() { return this._read(); },
+  async saveConfig(config) { const d = this._read(); d.config = config; this._write(d); return { ok: true }; },
+  async addDinner(din) { const d = this._read(); d.dinners.push(din); this._write(d); return { ok: true }; },
+  async updateDinner(din) { const d = this._read(); d.dinners = d.dinners.map(x => x.id === din.id ? din : x); this._write(d); return { ok: true }; },
+  async deleteDinner(id) { const d = this._read(); d.dinners = d.dinners.filter(x => x.id !== id); d.orders = d.orders.filter(o => o.dinnerId !== id); this._write(d); return { ok: true }; },
+  async addOrder(o) { const d = this._read(); d.orders.push(o); this._write(d); return { ok: true }; },
+  async deleteOrder(id) { const d = this._read(); d.orders = d.orders.filter(o => o.id !== id); this._write(d); return { ok: true }; },
+};
+const SheetBackend = {
+  mode: 'sheet',
+  async load() {
+    const r = await fetch(SCRIPT_URL + '?action=load&t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('Load failed: ' + r.status);
+    const j = await r.json(); if (j.error) throw new Error(j.error); return j;
+  },
+  async _post(action, payload) {
+    // text/plain body avoids a CORS preflight, which Apps Script can't answer
+    const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action, payload }) });
+    const j = await r.json(); if (j.error) throw new Error(j.error); return j;
+  },
+  saveConfig(c) { return this._post('saveConfig', c); },
+  addDinner(d) { return this._post('addDinner', d); },
+  updateDinner(d) { return this._post('updateDinner', d); },
+  deleteDinner(id) { return this._post('deleteDinner', { id }); },
+  addOrder(o) { return this._post('addOrder', o); },
+  deleteOrder(id) { return this._post('deleteOrder', { id }); },
+};
+const backend = SCRIPT_URL ? SheetBackend : LocalBackend;
+
+/* ===================== STATE ===================== */
+const state = { config: null, dinners: [], orders: [], view: 'guest', tab: 'orders', adminDinnerId: null, loaded: false, error: null, submitted: null, form: null };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function fmtDate(iso) { if (!iso) return ''; const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
+function fmtDateShort(iso) { if (!iso) return ''; const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); }
+function defaultConfig() { return { settings: { ...DEFAULT_SETTINGS }, menu: JSON.parse(JSON.stringify(DEFAULT_MENU)) }; }
+function mergeConfig(saved) {
+  const base = defaultConfig(); if (!saved) return base;
+  base.settings = { ...base.settings, ...(saved.settings || {}) };
+  for (const k of ['proteins', 'rice', 'courses']) {
+    if (!saved.menu || !saved.menu[k]) continue;
+    base.menu[k] = base.menu[k].map(item => { const s = saved.menu[k].find(x => x.id === item.id); return s ? { ...item, enabled: s.enabled, name: s.name || item.name, desc: s.desc ?? item.desc } : item; });
+  }
+  base.menu.custom = (saved.menu && saved.menu.custom) || [];
+  return base;
+}
+function guestDinner() {
+  const open = state.dinners.filter(d => d.status === 'open').sort((a, b) => a.date.localeCompare(b.date));
+  if (open.length) return open[0];
+  return null;
+}
+function nextDinner() { return [...state.dinners].sort((a, b) => b.date.localeCompare(a.date))[0] || null; }
+function ordersFor(id) { return state.orders.filter(o => o.dinnerId === id).sort((a, b) => (a.ts || 0) - (b.ts || 0)); }
+function proteinName(id) { const m = state.config.menu; return (m.proteins.find(p => p.id === id) || m.custom.find(c => c.id === id) || { name: id }).name; }
+function riceName(o) { const m = state.config.menu; const fr = (m.rice.find(r => r.id === (o.friedType || 'friedChicken')) || {}).name || 'Fried rice'; return o.rice === 'both' ? `White rice + ${fr}` : o.rice === 'fried' ? fr : 'White rice'; }
+let toastT; function toast(msg) { const el = document.getElementById('saved'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 1600); }
+
+async function init() {
+  try {
+    const data = await backend.load();
+    state.config = mergeConfig(data.config);
+    state.dinners = data.dinners || []; state.orders = data.orders || [];
+    state.loaded = true;
+  } catch (e) { state.error = e.message; state.config = defaultConfig(); state.loaded = true; }
+  route(); render();
+}
+function route() { state.view = location.hash.startsWith('#admin') ? 'admin' : 'guest'; if (state.view === 'admin' && !state.adminDinnerId) { const g = guestDinner() || nextDinner(); state.adminDinnerId = g ? g.id : null; } }
+window.addEventListener('hashchange', () => { route(); render(); });
+
+/* ===================== RENDER ===================== */
+function render() {
+  const app = document.getElementById('app');
+  app.innerHTML = state.view === 'admin' ? renderAdmin() : renderGuest();
+  bind();
+}
+
+
+function renderGuest() {
+  const din = guestDinner(); const nxt = nextDinner(); const cfg = state.config; const menu = cfg.menu;
+  const courses = menu.courses.filter(c => c.enabled);
+  const sides = menu.custom.filter(c => c.category === 'side' && c.enabled);
+  const mains = [...menu.proteins, ...menu.custom.filter(c => c.category === 'protein')];
+  const riceOn = menu.rice.filter(r => r.enabled);
+  const friedOn = riceOn.filter(r => r.id !== 'white');
+  const list = din ? ordersFor(din.id) : [];
+
+  let orderBlock;
+  if (state.submitted) {
+    const o = state.submitted;
+    orderBlock = `<section class="confirm" id="reservations">
+      <span class="kicker">Order confirmed</span>
+      <h2>We'll see you ${fmtDateShort((state.dinners.find(d => d.id === o.dinnerId) || {}).date)}, ${esc(o.name)}.</h2>
+      <p class="sub">Your order is in.${o.email ? ` A confirmation has been sent to ${esc(o.email)}.` : ''} Arrive hungry; the chef takes care of the rest.</p>
+      <div class="ticket">
+        <div><span>Entrée</span><b>${o.proteins.map(proteinName).join(' & ') || '—'}</b>${o.kid ? '<span class="tag">Child</span>' : ''}</div>
+        <div><span>Rice</span><b>${esc(riceName(o))}</b></div>
+        ${o.allergies ? `<div><span>Allergies</span><b>${esc(o.allergies)}</b></div>` : ''}
+        ${o.notes ? `<div><span>Requests</span><b>${esc(o.notes)}</b></div>` : ''}
+      </div>
+      <p style="margin-top:2rem"><button class="btn btn-outline" data-act="another">Place another order</button></p>
+    </section>`;
+  } else if (!din) {
+    orderBlock = `<section class="closed" id="reservations"><span class="kicker">Orders</span><h2>No dinner service is currently scheduled.</h2><p>${nxt ? `Our last seating was ${fmtDate(nxt.date)}. ` : ''}Check back soon, or ask Chris when the next one is.</p></section>`;
+  } else {
+    const f = state.form || (state.form = { name: '', email: '', kid: false, proteins: [], rice: 'white', friedType: friedOn[0] ? friedOn[0].id : '', allergies: '', notes: '' });
+    const protChips = mains.map(p => `<button type="button" class="chip" data-prot="${p.id}" aria-pressed="${f.proteins.includes(p.id)}" ${p.enabled ? '' : 'disabled'}>${esc(p.name)}</button>`).join('');
+    const riceChips = [['white', 'Steamed rice'], ['fried', 'Fried rice'], ['both', 'Both']].filter(([k]) => k === 'white' || friedOn.length).map(([k, l]) => `<button type="button" class="chip" data-rice="${k}" aria-pressed="${f.rice === k}">${l}</button>`).join('');
+    const friedChips = friedOn.map(r => `<button type="button" class="chip" data-fried="${r.id}" aria-pressed="${f.friedType === r.id}">${esc(r.name)}</button>`).join('');
+    orderBlock = `<section class="resv" id="reservations">
+      <span class="kicker">Place your order</span>
+      <h2>${fmtDate(din.date)}</h2>
+      <p class="sub">${din.label ? esc(din.label) + '. ' : ''}One order per guest. Children's portions are half size.</p>
+      ${state.formError ? `<div class="err">${esc(state.formError)}</div>` : ''}
+      <div class="two">
+        <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" value="${esc(f.name)}" autocomplete="name" placeholder="Full name"></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" type="text" inputmode="email" autocomplete="email" value="${esc(f.email)}" placeholder="For your confirmation"></div>
+      </div>
+      <div class="two">
+        <div class="field"><span class="lbl">Guest</span><div class="chips"><button type="button" class="chip" data-kid="0" aria-pressed="${!f.kid}">Adult</button><button type="button" class="chip" data-kid="1" aria-pressed="${!!f.kid}">Child</button></div></div>
+      </div>
+      <div class="field"><span class="lbl">Entrée — choose one, or two for a combination</span><div class="chips">${protChips}</div><p class="help">Combinations are served as a generous half portion of each.</p></div>
+      <div class="field"><span class="lbl">Rice</span><div class="chips">${riceChips}</div></div>
+      ${(f.rice === 'fried' || f.rice === 'both') && friedOn.length ? `<div class="field"><span class="lbl">Fried rice selection</span><div class="chips">${friedChips}</div></div>` : ''}
+      <div class="two">
+        <div class="field"><label for="f-allergy">Food allergies</label><input id="f-allergy" type="text" value="${esc(f.allergies)}" placeholder="Shellfish, sesame, none"></div>
+        <div class="field"><label for="f-notes">Special requests</label><input id="f-notes" type="text" value="${esc(f.notes)}" placeholder="Steak temperature, extra sauce"></div>
+      </div>
+      <button class="btn btn-red" data-act="submit" id="submitBtn">Place my order</button>
+      ${list.length ? `<p class="help" style="margin-top:1.2rem">${list.length} order${list.length === 1 ? '' : 's'} in for this seating.</p>` : ''}
+    </section>`;
+  }
+
+  const menuItem = (name, desc, right, off) => `<li class="${off ? 'off' : ''}"><span class="n">${esc(name)}</span>${right != null ? `<span class="price">${right}</span>` : '<span></span>'}${desc ? `<span class="d">${esc(desc)}</span>` : ''}</li>`;
+  return `
+    <nav class="nav"><div class="wrap"><a class="mark" href="#"><svg class="sun" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#C8102E"/><g fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(30 24 24)"><path d="M24 22.5v17" stroke-width="3" fill="none"/><path d="M20.2 5.5h7.6a.8.8 0 0 1 .8.8v14.9a1.8 1.8 0 0 1-1.8 1.8h-5.6a1.8 1.8 0 0 1-1.8-1.8V6.3a.8.8 0 0 1 .8-.8z" stroke-width="1"/></g><g transform="rotate(-30 24 24)"><path d="M24 21v18" stroke-width="3" fill="none"/><path d="M21.9 4.5l1 12.5h-2.2z M26.1 4.5l1.2 12.5h-2.2z" stroke-width=".9"/><path d="M20.4 17h7.2l-.9 4h-5.4z" stroke-width=".8"/></g></g></svg><span class="wordmark">Chribachi</span></a>
+      <div class="nav-links"><a href="#menu">Menu</a><a href="#reservations" class="cta">Place your order</a></div></div></nav>
+    <div class="wrap">
+    <section class="hero">
+      <div><span class="kicker">Hibachi dining</span>
+        <h1>The art of hibachi, <em>performed tableside.</em></h1>
+        <p class="lede">A single communal table. A chef at his Blackstone. Steak, chicken and seafood seared in front of you, with every course of a classic Japanese steakhouse.</p>
+        <a class="btn btn-red" href="#reservations">Place your order</a>
+        <div class="hero-meta">
+          <div>Next seating<strong>${din ? fmtDate(din.date) : 'To be announced'}</strong></div>
+          <div>Table<strong>${din ? esc(din.table || 'Patio') : '—'}</strong></div>
+          <div>Guests<strong>${din ? (list.length ? list.length + ' confirmed' : 'Taking orders') : '—'}</strong></div>
+        </div></div>
+    </section>
+    <section class="block" id="menu">
+      <span class="kicker">Dinner menu</span><h2>Menu</h2>
+      <p class="sub">Entrées are served with every course listed under the dinner. Fried rice may be added to, or substituted for, steamed rice.</p>
+      <div class="menu-grid">
+        <div><h4 class="menu-head">Entrées</h4><ul class="menu-list">${mains.map(p => menuItem(p.name, p.desc, p.enabled ? null : 'Coming soon', !p.enabled)).join('')}</ul>
+          <p class="menu-note">Choose two entrées for a combination dinner.</p>
+          <h4 class="menu-head" style="margin-top:2.5rem">Rice</h4><ul class="menu-list">${riceOn.map(r => menuItem(r.name, r.id === 'white' ? 'Steamed white rice.' : 'Hibachi garlic butter, egg, onion and carrot, soy caramelized on the griddle.', null)).join('')}</ul></div>
+        <div><h4 class="menu-head">Every dinner includes</h4><ul class="menu-list">${courses.map(c => menuItem(c.name, c.desc, null)).join('')}${sides.map(c => menuItem(c.name, c.desc, null)).join('')}</ul></div>
+      </div>
+    </section>
+    <section class="block">${orderBlock}</section>
+    <footer><span>Chribachi is an invite-only hibachi experience.</span><a href="#admin">Chef's office</a></footer>
+    </div>`;
+}
+function renderWhoTable(list) {
+  if (!list.length) return '<p style="color:var(--grey)">No guests confirmed yet.</p>';
+  return `<table class="table-list"><thead><tr><th>Guest</th><th>Entrée</th></tr></thead><tbody>${list.map(o => `<tr><td>${esc(o.name)}${o.kid ? '<span class="tag">Child</span>' : ''}</td><td>${o.proteins.map(proteinName).join(' & ') || '—'}</td></tr>`).join('')}</tbody></table>`;
+}
+
+/* ===================== ADMIN ===================== */
+function renderAdmin() {
+  const cfg = state.config; const din = state.dinners.find(d => d.id === state.adminDinnerId) || null; const list = din ? ordersFor(din.id) : [];
+  const tabs = [['dinners', 'Dinners'], ['orders', 'Orders'], ['prep', 'Prep'], ['shopping', 'Shopping list'], ['menu', 'Menu & portions'], ['setup', 'Setup']];
+  const dinnerSel = state.dinners.length ? `<div class="row no-print" style="margin-bottom:1rem"><div class="field" style="flex:0 1 320px"><label for="adminDinner">Working dinner</label><select id="adminDinner">${[...state.dinners].sort((a, b) => b.date.localeCompare(a.date)).map(d => `<option value="${d.id}" ${d.id === state.adminDinnerId ? 'selected' : ''}>${fmtDateShort(d.date)}${d.label ? ' — ' + esc(d.label) : ''} (${d.status})</option>`).join('')}</select></div></div>` : '';
+  let body = '';
+  const banner = backend.mode === 'local' ? `<div class="notice">Demo mode: orders are saved only in this browser. Connect the Google Sheet (Setup tab) before sharing the link.</div>` : (state.error ? `<div class="notice">Couldn't reach the Google Sheet: ${esc(state.error)}</div>` : '');
+  if (state.tab === 'dinners') body = renderDinners();
+  else if (state.tab === 'menu') body = renderMenuAdmin();
+  else if (state.tab === 'setup') body = renderSetup();
+  else if (!din) body = `<div class="card"><p>Create a dinner first (Dinners tab).</p></div>`;
+  else if (state.tab === 'orders') body = renderOrders(din, list);
+  else if (state.tab === 'prep') body = renderPrep(din, list);
+  else if (state.tab === 'shopping') body = renderShopping(din, list);
+  return `<div class="admin">
+    <nav class="nav"><div class="wrap"><a class="mark" href="#"><svg class="sun" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#C8102E"/><g fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(30 24 24)"><path d="M24 22.5v17" stroke-width="3" fill="none"/><path d="M20.2 5.5h7.6a.8.8 0 0 1 .8.8v14.9a1.8 1.8 0 0 1-1.8 1.8h-5.6a1.8 1.8 0 0 1-1.8-1.8V6.3a.8.8 0 0 1 .8-.8z" stroke-width="1"/></g><g transform="rotate(-30 24 24)"><path d="M24 21v18" stroke-width="3" fill="none"/><path d="M21.9 4.5l1 12.5h-2.2z M26.1 4.5l1.2 12.5h-2.2z" stroke-width=".9"/><path d="M20.4 17h7.2l-.9 4h-5.4z" stroke-width=".8"/></g></g></svg><span class="wordmark">Chribachi</span><span class="office">Chef's office</span></a><a class="btn-sm" href="#" style="white-space:nowrap">Guest site</a></div></nav><div class="wrap">
+    ${banner}
+    <div class="tabs" role="tablist">${tabs.map(([k, l]) => `<button role="tab" aria-selected="${state.tab === k}" data-tab="${k}">${l}</button>`).join('')}</div>
+    ${['orders', 'prep', 'shopping'].includes(state.tab) ? dinnerSel : ''}
+    ${body}
+  </div></div>`;
+}
+function renderDinners() {
+  const rows = [...state.dinners].sort((a, b) => b.date.localeCompare(a.date)).map(d => `<div class="dinner-row ${d.id === state.adminDinnerId ? 'current' : ''}">
+    <strong>${fmtDateShort(d.date)}</strong><select data-table="${d.id}" style="width:auto;padding:.4rem .6rem;min-height:40px"><option ${d.table !== 'Island' ? 'selected' : ''}>Patio</option><option ${d.table === 'Island' ? 'selected' : ''}>Island</option></select><span>${esc(d.label || '')}</span>
+    <span class="pill ${d.status}">${d.status === 'open' ? 'Taking orders' : 'Closed'}</span><span style="color:var(--ink-soft)">${ordersFor(d.id).length} orders</span>
+    <span style="flex:1"></span>
+    <button class="btn-sm" data-use="${d.id}">Work on this</button>
+    <button class="btn-sm" data-toggle="${d.id}">${d.status === 'open' ? 'Close orders' : 'Open orders'}</button>
+    <button class="btn-sm danger" data-del-dinner="${d.id}">Delete</button></div>`).join('');
+  return `<div class="card"><h3>New dinner</h3><div class="row">
+    <div class="field"><label for="nd-date">Date</label><input id="nd-date" type="date"></div>
+    <div class="field"><label for="nd-table">Table</label><select id="nd-table"><option>Patio</option><option>Island</option></select></div>
+    <div class="field" style="flex:2 1 220px"><label for="nd-label">Label (optional)</label><input id="nd-label" type="text" placeholder="Amy's birthday, Eagles bye week…"></div>
+    <button class="btn-sm red" data-act="addDinner">Create &amp; open for orders</button></div>
+    <p style="color:var(--ink-soft);font-size:.9rem;margin:.8rem 0 0">Guests see the earliest dinner that's open for orders. Close it when you're ready to shop.</p></div>
+    <div class="card"><h3>All dinners</h3>${rows || '<p>None yet.</p>'}</div>`;
+}
+function renderOrders(din, list) {
+  if (!list.length) return `<div class="card"><p>No orders yet for ${fmtDate(din.date)}. Share <code>${esc(location.origin + location.pathname)}</code> and they'll show up here.</p></div>`;
+  const { demand } = computeDemand(list, state.config);
+  const counts = Object.entries(demand.proteinCounts).map(([k, v]) => `${proteinName(k)} ${v}`).join(' · ');
+  return `<div class="card"><div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+      <div><div class="stat">${demand.headcount}</div><div>${demand.adults} adult${demand.adults === 1 ? '' : 's'}, ${demand.kids} kid${demand.kids === 1 ? '' : 's'}</div></div>
+      <div><div class="stat" style="font-size:1.2rem;padding-top:.5rem">${esc(counts) || '—'}</div><div>entrées ordered</div></div>
+      <div><div class="stat">${list.filter(o => o.allergies && !/^(none?|no|n\/a|nope)\.?$/i.test(o.allergies.trim())).length}</div><div>allergy flags</div></div></div></div>
+    <div class="card"><h3>Orders for ${fmtDate(din.date)}<small>${esc(din.table || 'Patio')} · ${din.status === 'open' ? 'still open' : 'closed'}</small></h3>
+    <div><table class="table-list stack"><thead><tr><th>Guest</th><th>Entrée</th><th>Rice</th><th>Allergies</th><th>Notes</th><th>Email</th><th class="no-print"></th></tr></thead><tbody>
+    ${list.map(o => `<tr><td data-label="Guest">${esc(o.name)}${o.kid ? '<span class="tag">Child</span>' : ''}</td><td data-label="Entrée">${o.proteins.map(proteinName).join(' + ') || '—'}</td><td data-label="Rice">${esc(riceName(o))}</td><td data-label="Allergies" class="${o.allergies && !/^(none?|no|n\/a|nope)\.?$/i.test(o.allergies.trim()) ? 'allergy' : ''}">${esc(o.allergies || '—')}</td><td data-label="Notes">${esc(o.notes || '—')}</td><td data-label="Email">${o.email ? `<a href="mailto:${esc(o.email)}">${esc(o.email)}</a>` : '—'}</td><td class="no-print"><button class="btn-sm danger" data-del-order="${o.id}">Remove</button></td></tr>`).join('')}
+    </tbody></table></div></div>`;
+}
+function renderPrep(din, list) {
+  if (!list.length) return `<div class="card"><p>No orders yet, nothing to scale.</p></div>`;
+  const P = computePrep(list, state.config); const d = P.demand;
+  const gb = P.garlicButter ? `<div class="card" style="border:2px solid var(--gold)"><h3>Garlic butter, make first<span class="mult">${P.garlicButter.sticks} stick${P.garlicButter.sticks > 1 ? 's' : ''}</span></h3>
+    <p style="color:var(--ink-soft);font-size:.95rem">Everything below needs ${fmtQty(P.garlicButter.tbspNeeded)} tbsp total, so this makes ${P.garlicButter.sticks * 8} tbsp with a cushion. Leftover freezes for 6 months.</p>
+    <ul class="ing">${P.garlicButter.ing.map(i => `<li>${esc(fmtIng(i))}</li>`).join('')}</ul><ol class="steps">${P.garlicButter.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol><a href="${P.garlicButter.src}" target="_blank" rel="noopener" style="font-size:.85rem">Full recipe at jasonfarmer.com</a></div>` : '';
+  const cards = P.prep.map(r => `<div class="card"><h3>${esc(r.name)}<span class="mult">×${r.mult}</span></h3>
+    <p style="color:var(--ink-soft);font-size:.9rem;margin:0 0 .3rem">${r.mult} batch${r.mult === 1 ? '' : 'es'} of the recipe (${esc(r.batchLabel)}). Needs ${fmtQty(r.need)} ${labelKind(r.base.kind)}, padded ${Math.round((P.settings.padFactor - 1) * 100)}%.</p>
+    <ul class="ing">${r.ing.map(i => `<li>${esc(fmtIng(i))}</li>`).join('')}</ul><ol class="steps">${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol><a href="${r.src}" target="_blank" rel="noopener" style="font-size:.85rem">Full recipe at jasonfarmer.com</a></div>`).join('');
+  const custom = P.customPrep.map(c => `<div class="card"><h3>${esc(c.name)}<span class="mult">${fmtQty(c.persons)} portions</span></h3><ul class="ing">${c.ing.map(i => `<li>${fmtQty(i.qty)} ${esc(i.unit)} ${esc(i.item)}</li>`).join('')}</ul></div>`).join('');
+  return `<div class="card"><div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
+    <div><div class="stat">${d.headcount}</div><div>at the table</div></div>
+    <div><div class="stat">${fmtQty(d.chickenOz / 16)}<span style="font-size:1rem"> lb</span></div><div>chicken to cook</div></div>
+    <div><div class="stat">${fmtQty(d.steakOz / 16)}<span style="font-size:1rem"> lb</span></div><div>steak to cook</div></div>
+    <div><div class="stat">${Math.ceil(d.shrimpLarge)}</div><div>large shrimp</div></div>
+    <div><div class="stat">${Math.ceil(d.shrimpSmall)}</div><div>appetizer shrimp</div></div></div>
+    <p style="margin:.8rem 0 0"><button class="btn-sm no-print" onclick="window.print()">Print prep sheet</button></p></div>
+    ${gb}<div class="grid2">${cards}${custom}</div>`;
+}
+function labelKind(k) { return { chickenOz: 'oz chicken', steakOz: 'oz steak', shrimpLarge: 'shrimp', shrimpSmall: 'small shrimp', whiteRiceServings: 'servings', friedShrimpServings: 'servings', friedChickenServings: 'servings', friedVegServings: 'servings', vegServings: 'servings', headcount: 'people' }[k] || k; }
+function renderShopping(din, list) {
+  if (!list.length) return `<div class="card"><p>No orders yet, nothing to buy.</p></div>`;
+  const S = computeShopping(list, state.config);
+  const done = state.shopDone || (state.shopDone = {});
+  const secs = S.sections.map(s => `<div class="card shop"><h3>${esc(s.section)}</h3>${s.items.map(i => `<label class="${done[i.name] ? 'done' : ''}"><input type="checkbox" data-shop="${esc(i.name)}" ${done[i.name] ? 'checked' : ''}><span><strong>${esc(i.name)}</strong> — ${esc(i.buy)}<span class="from">for ${esc(i.from.join(', '))}</span></span></label>`).join('')}</div>`).join('');
+  return `<div class="card no-print"><div class="row"><div><strong style="font-family:var(--display);font-weight:400">${fmtDate(din.date)}</strong> · ${S.demand.headcount} people</div><span style="flex:1"></span><button class="btn-sm" data-act="copyShop">Copy as text</button><button class="btn-sm" onclick="window.print()">Print</button></div>
+    <p style="color:var(--ink-soft);font-size:.9rem;margin:.8rem 0 0">Quantities are rounded up to what the store actually sells. "Check pantry" items show the total the recipes need.</p></div><div class="grid2">${secs}</div>`;
+}
+function shoppingText(S, din) {
+  let out = `CHRIBACHI SHOPPING — ${fmtDate(din.date)} — ${S.demand.headcount} people\n`;
+  for (const s of S.sections) { out += `\n${s.section.toUpperCase()}\n`; for (const i of s.items) out += `[ ] ${i.name} — ${i.buy}\n`; }
+  return out;
+}
+function renderMenuAdmin() {
+  const m = state.config.menu; const s = state.config.settings;
+  const tog = (arr, key) => arr.map(x => `<label class="toggle"><input type="checkbox" data-tog="${key}:${x.id}" ${x.enabled ? 'checked' : ''}><span class="nm">${esc(x.name)}<small>${esc(x.desc || '')}</small></span></label>`).join('');
+  const custom = m.custom.map((c, ci) => `<div class="card" style="background:#fff8ea"><div class="row"><div class="field" style="flex:2 1 200px"><label>Name</label><input type="text" data-cust="${ci}:name" value="${esc(c.name)}"></div>
+    <div class="field"><label>Type</label><select data-cust="${ci}:category"><option value="protein" ${c.category === 'protein' ? 'selected' : ''}>Entrée (guests choose it)</option><option value="side" ${c.category === 'side' ? 'selected' : ''}>Side (everyone gets it)</option></select></div>
+    <div class="field" style="flex:2 1 200px"><label>Menu description</label><input type="text" data-cust="${ci}:desc" value="${esc(c.desc || '')}"></div>
+    <label class="toggle" style="border:0"><input type="checkbox" data-cust="${ci}:enabled" ${c.enabled ? 'checked' : ''}> On the menu</label>
+    <button class="btn-sm danger" data-del-cust="${ci}">Remove</button></div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin:.8rem 0 .4rem">Ingredients per person (${c.category === 'protein' ? 'scaled by combo/kid portion like the other mains' : 'one per plate'}):</p>
+    ${(c.perPerson || []).map((i, ii) => `<div class="custom-row"><input type="text" placeholder="Ingredient" data-ci="${ci}:${ii}:item" value="${esc(i.item)}"><input type="number" step="any" placeholder="Qty" data-ci="${ci}:${ii}:qty" value="${i.qty}"><input type="text" placeholder="oz, each…" data-ci="${ci}:${ii}:unit" value="${esc(i.unit)}"><select data-ci="${ci}:${ii}:section">${SECTION_ORDER.map(sec => `<option ${i.section === sec ? 'selected' : ''}>${sec}</option>`).join('')}</select><button class="btn-sm danger" data-del-ci="${ci}:${ii}">×</button></div>`).join('')}
+    <button class="btn-sm" data-add-ci="${ci}">+ ingredient</button></div>`).join('');
+  return `<div class="grid2">
+    <div class="card"><h3>Entrées</h3>${tog(m.proteins, 'proteins')}</div>
+    <div class="card"><h3>Rice</h3>${tog(m.rice, 'rice')}</div>
+    <div class="card"><h3>Served to everyone</h3>${tog(m.courses, 'courses')}</div>
+    <div class="card"><h3>Portions &amp; padding</h3><div class="settings-grid">
+      <label><span>Chicken per adult (oz)</span><input type="number" step="0.5" data-set="chickenOz" value="${s.chickenOz}"></label>
+      <label><span>Steak per adult (oz)</span><input type="number" step="0.5" data-set="steakOz" value="${s.steakOz}"></label>
+      <label><span>Large shrimp per adult</span><input type="number" step="1" data-set="shrimpPerPerson" value="${s.shrimpPerPerson}"></label>
+      <label><span>Appetizer shrimp per adult</span><input type="number" step="1" data-set="appShrimpPerPerson" value="${s.appShrimpPerPerson}"></label>
+      <label><span>Combo: each protein ×</span><input type="number" step="0.05" min="0.3" max="1" data-set="comboFactor" value="${s.comboFactor}"></label>
+      <label><span>Kid portion ×</span><input type="number" step="0.05" min="0.2" max="1" data-set="kidFactor" value="${s.kidFactor}"></label>
+      <label><span>Make extra (1.10 = +10%)</span><input type="number" step="0.05" min="1" max="2" data-set="padFactor" value="${s.padFactor}"></label>
+      <label><span>White rice per person (cups dry)</span><input type="number" step="0.25" data-set="whiteRiceCupsPerPerson" value="${s.whiteRiceCupsPerPerson}"></label>
+    </div><p style="color:var(--ink-soft);font-size:.85rem;margin:.8rem 0 0">Recipes round up to the nearest half batch; sauces, soup and salad never drop below one full batch.</p></div>
+  </div>
+  <div class="card"><h3>Custom menu items</h3><p style="color:var(--ink-soft);font-size:.95rem">Add something that isn't in the book — a main guests can choose, or a side everyone gets. List its ingredients per person and the shopping list picks them up.</p>${custom}<button class="btn-sm red" data-act="addCustom">+ Add a menu item</button></div>`;
+}
+function renderSetup() {
+  const ok = backend.mode === 'sheet';
+  return `<div class="card"><h3>Where orders live</h3>
+    <div class="notice ${ok ? 'ok' : ''}">${ok ? `Connected to your Google Sheet.${state.error ? ' Last load failed: ' + esc(state.error) : ''}` : 'Not connected. Orders are stored in this browser only, so guests on their own phones won\'t reach you yet.'}</div>
+    <ol class="steps" style="color:var(--ink);font-size:1rem">
+      <li>Create a blank Google Sheet. Extensions → Apps Script. Paste the contents of <code>Code.gs</code> from the download, save.</li>
+      <li>Deploy → New deployment → type Web app. Execute as <b>Me</b>, access <b>Anyone</b>. Copy the web app URL.</li>
+      <li>Open <code>index.html</code> in a text editor and paste that URL into <code>SCRIPT_URL</code> near the top. Upload the file to your host.</li>
+      <li>Reload this page. This box turns green and the Config, Dinners and Orders tabs appear in the sheet.</li>
+    </ol>
+    <p style="font-size:.9rem;color:var(--ink-soft)">Menu toggles and portion settings are also saved to the sheet, so they apply for every guest, not just this browser. Confirmation emails are sent from the Google account that deployed the script; set <code>CHEF_EMAIL</code> at the top of <code>Code.gs</code> to get a copy of each order.</p></div>
+    <div class="card"><h3>Sharing</h3><p>Guests order at <code>${esc(location.origin + location.pathname)}</code>. This admin page is <code>${esc(location.origin + location.pathname)}#admin</code> — not linked anywhere obvious, but not password-protected either.</p></div>`;
+}
+
+/* ===================== EVENTS ===================== */
+async function persistConfig() { try { await backend.saveConfig(state.config); toast('Saved'); } catch (e) { toast('Save failed: ' + e.message); } }
+function bind() {
+  const app = document.getElementById('app');
+  app.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { state.tab = b.dataset.tab; render(); });
+  const sel = document.getElementById('adminDinner'); if (sel) sel.onchange = () => { state.adminDinnerId = sel.value; state.shopDone = {}; render(); };
+  // guest form
+  const f = state.form;
+  app.querySelectorAll('[data-prot]').forEach(b => b.onclick = () => { const id = b.dataset.prot; const i = f.proteins.indexOf(id); if (i >= 0) f.proteins.splice(i, 1); else { if (f.proteins.length >= 2) f.proteins.shift(); f.proteins.push(id); } syncForm(); render(); });
+  app.querySelectorAll('[data-rice]').forEach(b => b.onclick = () => { f.rice = b.dataset.rice; syncForm(); render(); });
+  app.querySelectorAll('[data-fried]').forEach(b => b.onclick = () => { f.friedType = b.dataset.fried; syncForm(); render(); });
+  app.querySelectorAll('[data-kid]').forEach(b => b.onclick = () => { f.kid = b.dataset.kid === '1'; syncForm(); render(); });
+  const submit = document.getElementById('submitBtn'); if (submit) submit.onclick = submitOrder;
+  app.querySelectorAll('[data-act="another"]').forEach(b => b.onclick = () => { state.submitted = null; state.form = null; render(); location.hash = '#order'; });
+  // admin: dinners
+  app.querySelectorAll('[data-act="addDinner"]').forEach(b => b.onclick = async () => {
+    const date = document.getElementById('nd-date').value; const label = document.getElementById('nd-label').value.trim(); const table = document.getElementById('nd-table').value;
+    if (!date) return toast('Pick a date first');
+    const din = { id: uid(), date, label, table, status: 'open', createdAt: Date.now() };
+    state.dinners.push(din); state.adminDinnerId = din.id; render();
+    try { await backend.addDinner(din); toast('Dinner created'); } catch (e) { toast('Save failed: ' + e.message); }
+  });
+  app.querySelectorAll('[data-table]').forEach(sel => sel.onchange = async () => { const d = state.dinners.find(x => x.id === sel.dataset.table); d.table = sel.value; try { await backend.updateDinner(d); toast('Table: ' + d.table); } catch (e) { toast('Save failed: ' + e.message); } });
+  app.querySelectorAll('[data-use]').forEach(b => b.onclick = () => { state.adminDinnerId = b.dataset.use; state.tab = 'orders'; render(); });
+  app.querySelectorAll('[data-toggle]').forEach(b => b.onclick = async () => { const d = state.dinners.find(x => x.id === b.dataset.toggle); d.status = d.status === 'open' ? 'closed' : 'open'; render(); try { await backend.updateDinner(d); toast(d.status === 'open' ? 'Orders open' : 'Orders closed'); } catch (e) { toast('Save failed: ' + e.message); } });
+  app.querySelectorAll('[data-del-dinner]').forEach(b => b.onclick = async () => { const d = state.dinners.find(x => x.id === b.dataset.delDinner); if (!confirm(`Delete ${fmtDateShort(d.date)} and its ${ordersFor(d.id).length} orders?`)) return; state.dinners = state.dinners.filter(x => x.id !== d.id); state.orders = state.orders.filter(o => o.dinnerId !== d.id); if (state.adminDinnerId === d.id) state.adminDinnerId = (nextDinner() || {}).id || null; render(); try { await backend.deleteDinner(d.id); toast('Deleted'); } catch (e) { toast('Delete failed: ' + e.message); } });
+  app.querySelectorAll('[data-del-order]').forEach(b => b.onclick = async () => { const o = state.orders.find(x => x.id === b.dataset.delOrder); if (!confirm(`Remove ${o.name}'s order?`)) return; state.orders = state.orders.filter(x => x.id !== o.id); render(); try { await backend.deleteOrder(o.id); toast('Removed'); } catch (e) { toast('Delete failed: ' + e.message); } });
+  // shopping
+  app.querySelectorAll('[data-shop]').forEach(c => c.onchange = () => { state.shopDone[c.dataset.shop] = c.checked; c.closest('label').classList.toggle('done', c.checked); });
+  app.querySelectorAll('[data-act="copyShop"]').forEach(b => b.onclick = async () => { const din = state.dinners.find(d => d.id === state.adminDinnerId); const S = computeShopping(ordersFor(din.id), state.config); try { await navigator.clipboard.writeText(shoppingText(S, din)); toast('Copied'); } catch { toast('Copy blocked — select and copy manually'); } });
+  // menu toggles & settings
+  app.querySelectorAll('[data-tog]').forEach(c => c.onchange = () => { const [key, id] = c.dataset.tog.split(':'); const it = state.config.menu[key].find(x => x.id === id); it.enabled = c.checked; persistConfig(); });
+  app.querySelectorAll('[data-set]').forEach(i => i.onchange = () => { const v = parseFloat(i.value); if (!isNaN(v)) { state.config.settings[i.dataset.set] = v; persistConfig(); } });
+  app.querySelectorAll('[data-act="addCustom"]').forEach(b => b.onclick = () => { state.config.menu.custom.push({ id: 'c_' + uid(), name: 'New item', category: 'side', desc: '', enabled: false, perPerson: [{ item: '', qty: 1, unit: 'each', section: 'Other' }] }); render(); persistConfig(); });
+  app.querySelectorAll('[data-cust]').forEach(el => el.onchange = () => { const [ci, k] = el.dataset.cust.split(':'); const c = state.config.menu.custom[+ci]; c[k] = el.type === 'checkbox' ? el.checked : el.value; if (k === 'category') render(); persistConfig(); });
+  app.querySelectorAll('[data-del-cust]').forEach(b => b.onclick = () => { if (!confirm('Remove this menu item?')) return; state.config.menu.custom.splice(+b.dataset.delCust, 1); render(); persistConfig(); });
+  app.querySelectorAll('[data-ci]').forEach(el => el.onchange = () => { const [ci, ii, k] = el.dataset.ci.split(':'); const i = state.config.menu.custom[+ci].perPerson[+ii]; i[k] = k === 'qty' ? parseFloat(el.value) || 0 : el.value; persistConfig(); });
+  app.querySelectorAll('[data-add-ci]').forEach(b => b.onclick = () => { state.config.menu.custom[+b.dataset.addCi].perPerson.push({ item: '', qty: 1, unit: 'each', section: 'Other' }); render(); });
+  app.querySelectorAll('[data-del-ci]').forEach(b => b.onclick = () => { const [ci, ii] = b.dataset.delCi.split(':'); state.config.menu.custom[+ci].perPerson.splice(+ii, 1); render(); persistConfig(); });
+}
+function syncForm() { const f = state.form; if (!f) return; const g = id => (document.getElementById(id) || {}).value; if (g('f-name') != null) f.name = g('f-name'); if (g('f-email') != null) f.email = g('f-email'); if (g('f-allergy') != null) f.allergies = g('f-allergy'); if (g('f-notes') != null) f.notes = g('f-notes'); }
+async function submitOrder() {
+  syncForm(); const f = state.form; const din = guestDinner(); state.formError = null;
+  if (!din) return;
+  if (!f.name.trim()) state.formError = 'Please enter your name.';
+  else if (f.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) state.formError = 'That email address doesn\'t look right.';
+  else if (!f.proteins.length) state.formError = 'Choose at least one entrée.';
+  if (state.formError) { render(); document.getElementById('order').scrollIntoView(); return; }
+  const o = { id: uid(), dinnerId: din.id, name: f.name.trim(), email: f.email.trim(), kid: !!f.kid, proteins: [...f.proteins], rice: f.rice, friedType: (f.rice === 'white') ? '' : f.friedType, allergies: f.allergies.trim(), notes: f.notes.trim(), ts: Date.now() };
+  o.emailSummary = { date: fmtDate(din.date), table: din.table || 'Patio', label: din.label || '', entree: o.proteins.map(proteinName).join(' & '), rice: riceName(o), portion: o.kid ? 'Child' : 'Adult' };
+  const btn = document.getElementById('submitBtn'); btn.disabled = true; btn.textContent = 'Sending…';
+  try { await backend.addOrder(o); state.orders.push(o); state.submitted = o; state.form = null; render(); document.getElementById('order').scrollIntoView(); }
+  catch (e) { state.formError = 'Couldn\'t send that: ' + e.message + '. Try again, or text Chris.'; render(); }
+}
+init();
+</script>
+</body>
+</html>
